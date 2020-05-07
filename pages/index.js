@@ -1,49 +1,85 @@
-import React from 'react'
-import { useDispatch } from 'react-redux'
-import { withRedux } from '../lib/redux'
-import { compose } from 'redux'
-import { withApollo } from '../lib/apollo'
-import useInterval from '../lib/useInterval'
-import Layout from '../components/Layout'
-import Clock from '../components/Clock'
-import Counter from '../components/Counter'
-import Submit from '../components/Submit'
-import PostList from '../components/PostList'
+import React from "react";
+import Layout from "../components/layout";
+import { withApollo } from "../lib/apollo";
+import gql from "graphql-tag";
+import { useQuery } from "@apollo/react-hooks";
+import Link from "next/link";
 
-const IndexPage = () => {
-  // Tick the time every second
-  const dispatch = useDispatch()
-  useInterval(() => {
-    dispatch({
-      type: 'TICK',
-      light: true,
-      lastUpdate: Date.now(),
-    })
-  }, 1000)
-  return (
-    <Layout>
-      {/* Redux */}
-      <Clock />
-      <Counter />
-      <hr />
-      {/* Apollo */}
-      <Submit />
-      <PostList />
-    </Layout>
-  )
-}
+const CATEGORIES_QUERY = gql`
+    {
+        categoryList {
+            children {
+                id
+                name
+                url_path
+                children {
+                    id
+                    name
+                    url_path
+                    children {
+                        id
+                        name
+                        url_path
+                    }
+                }
+            }
+        }
+    }
+`;
 
-IndexPage.getInitialProps = ({ reduxStore }) => {
-  // Tick the time once, so we'll have a
-  // valid time before first render
-  const { dispatch } = reduxStore
-  dispatch({
-    type: 'TICK',
-    light: typeof window === 'object',
-    lastUpdate: Date.now(),
-  })
+const Index = () => {
+    const pageConfig = {
+        title: "Home",
+    };
 
-  return {}
-}
+    const { loading, data } = useQuery(CATEGORIES_QUERY);
 
-export default compose(withApollo, withRedux)(IndexPage)
+    if (loading) {
+        return (
+            <div className="is-loading">
+                <div>...Loading...</div>
+            </div>
+        );
+    }
+    // save to a variable after the data loaded (not loading)
+    const categories = data.categoryList[0].children;
+
+    return [
+        <div className="content-wrapper">
+            <Layout pageConfig={pageConfig} />
+            <div>
+                <h1>Homepage</h1>               
+                <ul>
+                    {categories.map((catLvl1) => (
+                        <li key={catLvl1.id}>
+                            <Link
+                                href="catalog/category/[id]"
+                                as={`catalog/category/${catLvl1.id}`}
+                            >
+                                <a>{catLvl1.name}</a>
+                            </Link>
+                            {
+                                catLvl1.children.length ?
+                                <ul>
+                                    {catLvl1.children.map((catLvl2) => (
+                                        <li key={catLvl2.id}>
+                                            <Link
+                                                href="catalog/category/[...slug]"
+                                                as={`catalog/category/${catLvl2.url_path}`}
+                                            >
+                                                <a>{catLvl2.name}</a>
+                                            </Link>
+                                        </li>
+                                    ))}
+                                </ul>
+                                : null
+                            }
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        </div>
+    ];
+};
+
+export default (withApollo)(Index);

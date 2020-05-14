@@ -7,6 +7,10 @@ const Navigation = () => {
                 <a>Home</a>
             </Link>
             &nbsp; | &nbsp;
+            <Link href="/cart">
+                <a>Cart Page</a>
+            </Link>
+            &nbsp; | &nbsp;
             <Link href="/about-us/">
                 <a>About Us</a>
             </Link>

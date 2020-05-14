@@ -1,13 +1,22 @@
 import { useRouter } from "next/router";
+import { withRedux } from '../../../lib/redux';
+import { compose } from 'redux';
+import { useDispatch } from 'react-redux';
+
+import React, { useState } from 'react';
 import Layout from "../../../components/layout";
 import { withApollo } from "../../../lib/apollo";
+
+
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
 import Link from "next/link";
 import ReactHtmlParser from "react-html-parser";
-import Price from "../../../components/price"
+import Price from "../../../components/price";
 
-const Category = () => {
+const Product = () => {
+    const [qtyproduct, setQtyproduct] = useState();
+    const dispatch = useDispatch();    
     const router = useRouter();
     const { slug } = router.query;
     // filters "url_key" is different with url_path
@@ -57,11 +66,34 @@ const Category = () => {
 
     const productdata = data.products.items[0];
     const pageTitle = productdata.name;
-    console.log(productdata);
+
+    // Add to Cart
+    const handleAddtoCart = (e) => {
+        e.preventDefault();
+        const productData = {
+            id: productdata.id,
+            sku: productdata.sku,
+            name: productdata.name,
+            image: productdata.image,
+            qty: parseInt(e.target.qty.value),
+            price: productdata.price_range.minimum_price.final_price,
+        };
+        
+        dispatch({
+            type:'ADD_TO_CART',
+            productData
+        });
+
+        //setQtyproduct(0);
+    }
+    // const handleQtyinput = (e) => {
+    //     setQtyproduct(e.target.value);        
+    // }
+    // END Add to Cart
 
     const pageConfig = {
         title: pageTitle
-    };
+    };    
 
     return (
         <div className="content-wrapper">
@@ -84,10 +116,12 @@ const Category = () => {
                         </div>
                         <div className="add-to">
                             <div className="add-to-cart">
-                                <input type="text" className="input qty" value="1" />
-                                <button type="button" className="action primary">
-                                    <span><span>Add to Cart</span></span>
-                                </button>
+                                <form onSubmit={handleAddtoCart}>
+                                    <input type="number" className="input qty" name="qty" value={qtyproduct} required/>
+                                    <button type="submit" className="action primary">
+                                        <span><span>Add to Cart</span></span>
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -108,4 +142,4 @@ const Category = () => {
     );
 };
 
-export default (withApollo)(Category);
+export default compose(withApollo, withRedux)(Product)

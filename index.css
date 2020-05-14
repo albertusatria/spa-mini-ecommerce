@@ -5,6 +5,18 @@ body {
     font-family: 'Dosis', sans-serif;
 }
 
+/* no outline */
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
+
+img {
+    width: 100%;
+}
+
 .content-wrapper {    
     padding: 20px;
 }
@@ -13,10 +25,6 @@ body {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
-}
-
-.price-box > div {
-    justify-content: space-around;
 }
 
 .price-box span {
@@ -128,7 +136,6 @@ ol.products.list .product-item-name {
     margin: 0;
 }
 
-
 .product.media {
     flex-basis: 40%;
 }
@@ -154,4 +161,58 @@ ol.products.list .product-item-name {
 
 .product.attribute.description p {
     margin: 0;
+}
+
+.cart-items table {
+    width: 85%;
+}
+.cart-items table td{
+    vertical-align: top;
+    width: 50%;
+}
+.cart-items table tbody:nth-last-child(2) td{
+    border-bottom: 1px solid #eaeaea;
+}
+.cart-items table thead tr th:nth-last-child(1),
+.cart-items table tbody tr td:nth-last-child(1) {
+    text-align: right;
+}
+.cart-items table td > div {
+    padding: 10px 0 20px;
+}
+.cart-items .product-info-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between; 
+}
+.cart-items .product-info-wrapper .product-image {
+    flex-basis: 25%;
+}
+.cart-items .product-info-wrapper .product-info {
+    padding: 0;
+    flex-basis: 65%;
+}
+.cart-items .product-image {
+    width: 20%;
+}
+.cart-items .product-sku span {
+    font-size: 12px;
+    font-weight: 200;    
+}
+.cart-items .product-qty {
+    margin: 10px 0;
+}
+.cart-items .product-qty span {
+    text-transform: uppercase;
+}
+.cart-items table tfoot td {
+    font-weight: 600;
+    padding-top: 10px;
+}
+.cart-items table tfoot td:first-child {
+    padding-left: 10px;
+}
+.cart-items table tfoot td:nth-last-child(1) {
+    padding-right: 10px;
+    text-align: right;
 }

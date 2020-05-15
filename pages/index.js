@@ -64,7 +64,7 @@ const Index = () => {
                                     {catLvl1.children.map((catLvl2) => (
                                         <li key={catLvl2.id}>
                                             <Link
-                                                href="catalog/category/[...slug]"
+                                                href="catalog/category/[...urlkey]"
                                                 as={`catalog/category/${catLvl2.url_path}`}
                                             >
                                                 <a>{catLvl2.name}</a>

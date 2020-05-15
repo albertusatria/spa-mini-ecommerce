@@ -119,7 +119,7 @@ const Category = () => {
                 {categorydata.products.items.length ? (
                     <ol className="products list">
                         {categorydata.products.items.map((productdata) => (
-                            <li className="product-item">
+                            <li className="product-item" key={productdata.id}>
                                 <Link
                                     href="/catalog/product/[...slug]"
                                     as={`/catalog/product/${productdata.url_key}`}

@@ -9,11 +9,11 @@ import Price from "../../../components/price"
 
 const Category = () => {
     const router = useRouter();
-    const { slug } = router.query;
+    const { urlkey } = router.query;
     // filters "url_key" is different with url_path
     // so make sure to only get the last index of the requested URI/slug
     // const url_key = slug.join('/');
-    var url_key = slug[slug.length - 1];
+    var url_key = urlkey[urlkey.length - 1];
 
     const CATEGORY_DATA = gql`
         {
@@ -88,7 +88,7 @@ const Category = () => {
                 {categorydata.products.items.length ? (
                     <ol className="products list">
                         {categorydata.products.items.map((productdata) => (
-                            <li className="product-item">
+                            <li className="product-item" key={productdata.id}>
                                 <Link
                                     href="/catalog/product/[...slug]"
                                     as={`/catalog/product/${productdata.url_key}`}

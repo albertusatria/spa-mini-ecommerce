@@ -14,6 +14,10 @@ const Navigation = () => {
             <Link href="/about-us/">
                 <a>About Us</a>
             </Link>
+            &nbsp; | &nbsp;
+            <Link href="/login/">
+                <a>Login</a>
+            </Link>
         </div>
     );
 };

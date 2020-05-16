@@ -17,6 +17,7 @@
     "graphql": "14.5.8",
     "graphql-tag": "2.10.1",
     "isomorphic-unfetch": "^3.0.0",
+    "material-ui-password-field": "^2.1.1",
     "next": "latest",
     "prop-types": "^15.6.0",
     "react": "^16.11.0",

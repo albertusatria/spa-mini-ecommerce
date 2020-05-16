@@ -218,3 +218,23 @@ ol.products.list .product-item-name {
     padding-right: 10px;
     text-align: right;
 }
+
+/* Login */
+.login-page {
+    max-width: 50%;
+    margin: 0;
+    padding: 20px 0;
+}
+form .MuiFormControl-root {
+    width: 100%;
+}
+form .MuiFormControl-root.MuiTextField-root {
+    width: 50%;
+}
+form button[type="submit"] {
+    margin-top: 50px;
+}
+
+.need-to-login {
+    margin: 50px auto 20px;
+}

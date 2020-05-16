@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Dosis:wght@200;400;600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;500&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap');
+
 body {
     background-color: #fff;
     font-family: 'Dosis', sans-serif;
@@ -215,4 +217,24 @@ ol.products.list .product-item-name {
 .cart-items table tfoot td:nth-last-child(1) {
     padding-right: 10px;
     text-align: right;
+}
+
+/* Login */
+.login-page {
+    max-width: 50%;
+    margin: 0;
+    padding: 20px 0;
+}
+form .MuiFormControl-root {
+    width: 100%;
+}
+form .MuiFormControl-root.MuiTextField-root {
+    width: 50%;
+}
+form button[type="submit"] {
+    margin-top: 50px;
+}
+
+.need-to-login {
+    margin: 50px auto 20px;
 }

@@ -11,8 +11,16 @@ const Navigation = () => {
                 <a>Cart Page</a>
             </Link>
             &nbsp; | &nbsp;
-            <Link href="/about-us/">
+            <Link href="/about-us">
                 <a>About Us</a>
+            </Link>
+            &nbsp; | &nbsp;
+            <Link href="/signin">
+                <a>Login</a>
+            </Link>
+            &nbsp; | &nbsp;
+            <Link href="/myaccount">
+                <a>My Account</a>
             </Link>
         </div>
     );
